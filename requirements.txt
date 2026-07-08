@@ -1,0 +1,27 @@
+# AI 对话助手 - 核心依赖
+
+# LangChain 框架
+langchain-core>=0.3.32
+langchain-openai>=0.3.11
+
+# OpenAI SDK（兼容千帆等）
+openai>=1.69.1
+
+# 环境变量管理
+python-dotenv>=1.0.1
+
+# 数据处理和可视化
+pandas>=2.2.3
+matplotlib>=3.10.1
+numpy>=2.2.0
+
+# 网络请求
+httpx>=0.30.0
+
+# 长期记忆（可选，如果不使用 mem0 可以注释掉）
+# mem0ai>=0.1.50
+
+# 注意：
+# 1. 如果使用 mem0 长期记忆功能，取消上面 mem0ai 的注释
+# 2. 千帆 AI 搜索和 DeepSeek API 通过 OpenAI SDK 兼容调用
+# 3. embedding 功能需要配置 EMBEDDING_API_KEY 和 EMBEDDING_BASE_URL

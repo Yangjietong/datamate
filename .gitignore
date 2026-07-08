@@ -1,0 +1,56 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Environment variables (包含 API 密钥，不要提交)
+.env
+
+# Local Python version
+.python-version
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 数据库文件
+*.db
+*.sqlite
+conversations.db
+
+# 生成的文件（图表、CSV等）
+*.csv
+*.png
+*.jpg
+*.jpeg
+chart.png
+data.csv
+
+# 日志
+*.log
+
+# 测试文件
+test_*.py
+*_test.py
+test_conversation_simple.py
+test_restore.py
+
+# 临时文件
+*.tmp
+temp/
+tmp/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 完整依赖列表（太长，只保留精简版）
+requirements_full.txt
