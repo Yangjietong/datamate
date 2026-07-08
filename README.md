@@ -153,38 +153,6 @@ python cli_conversation.py delete <session_id> [-y]
 
 对话在每次调用 `gateway.handle_request()` 后自动保存，无需额外操作：
 
-```python
-from gateway import Gateway
-from sessionmanager import SessionManager
-
-session_manager = SessionManager()
-gateway = Gateway(session_manager)
-
-# 新对话（自动保存）
-result = gateway.handle_request(user_id="user_123", message="你好", session_id=None)
-
-# 恢复已有对话，只需传入已有的 session_id
-result = gateway.handle_request(
-    user_id="user_123",
-    message="继续之前的话题",
-    session_id="test_user_20260708_141354",
-)
-```
-
-需要更灵活的操作时可直接使用 `ConversationManager`：
-
-```python
-from conversation_manager import ConversationManager
-
-cm = ConversationManager()
-
-conversations = cm.list_conversations(user_id="user_123", limit=10)
-results = cm.search_conversations(keyword="天气", user_id="user_123")
-conv = cm.get_conversation(session_id="test_user_20260708_141354")
-messages = cm.get_messages(session_id="test_user_20260708_141354", limit=10)
-cm.delete_conversation(session_id="test_user_20260708_141354")
-```
-
 **注意事项**：
 - `SessionManager` 本身仍是内存存储（会话摘要功能有效，但重启后丢失）；`ConversationManager` 的 SQLite 存储才是持久化的，重启后可通过 `--session-id` 或 `restore_session()` 恢复。
 - 自动生成的 `session_id` 格式为 `{user_id}_{8位随机hex}`。

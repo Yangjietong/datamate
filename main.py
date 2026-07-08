@@ -12,9 +12,7 @@ def main():
 
     session_manager = SessionManager()
     gateway = Gateway(session_manager)
-
-    print("流程：输入 → Gateway 路由 → Runtime（工具调用）→ 返回结果")
-    print("工具：天气、当前时间、订单查询（仅 ORD001 有数据）")
+    print("工具：ai搜索(百度千帆)、生成csv文件、可视化")
     print("输入 quit 退出。\n")
 
     user_id = args.user_id
