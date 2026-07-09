@@ -52,6 +52,15 @@ if "%CHOICE%"=="1" (
     echo Opening .env file for editing...
     notepad .env
     echo.
+    echo [INFO] Installing mem0ai package...
+    .venv\Scripts\python.exe -m pip install "mem0ai>=0.1.50"
+    if errorlevel 1 (
+        echo [ERROR] Failed to install mem0ai
+        pause
+        exit /b 1
+    )
+    echo [OK] mem0ai installed
+    echo.
     echo After saving:
     echo - Make sure MEM0_API_KEY=your_key_here is uncommented
     echo - Restart the application

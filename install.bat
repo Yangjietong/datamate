@@ -74,18 +74,22 @@ set /p ENABLE_MEMORY="Enable long-term memory? (y/N): "
 
 if /i "%ENABLE_MEMORY%"=="y" (
     echo.
-    echo [INFO] Long-term memory will be ENABLED
+    echo [INFO] Installing mem0ai package...
+    python -m pip install "mem0ai>=0.1.50"
+    if errorlevel 1 (
+        echo [ERROR] Failed to install mem0ai
+        pause
+        exit /b 1
+    )
+    echo [OK] mem0ai installed
     echo Please configure MEM0_API_KEY in .env file
     echo.
-    REM Update gateway.py to enable memory
-    powershell -Command "(Get-Content gateway.py) -replace 'use_memory=False', 'use_memory=True' | Set-Content gateway.py"
-    echo [OK] Updated gateway.py: use_memory=True
 ) else (
     echo.
     echo [INFO] Long-term memory will be DISABLED (default)
     echo You can enable it later by:
-    echo   1. Configure MEM0_API_KEY in .env
-    echo   2. Change use_memory=False to True in gateway.py
+    echo   1. Run: python -m pip install mem0ai
+    echo   2. Configure MEM0_API_KEY in .env
 )
 echo.
 
