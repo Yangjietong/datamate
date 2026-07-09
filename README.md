@@ -1,4 +1,4 @@
-# AI 对话助手
+# DataMate AI数据助手
 
 一个功能强大的 AI 对话系统，支持联网搜索、数据可视化、深度研究、对话持久化等功能。
 
@@ -72,6 +72,11 @@ EMBEDDING_BASE_URL=https://ai.gitee.com/v1
 
 ### 4. 运行
 
+```Windows
+# 启动对话助手
+chat.bat
+```
+或
 ```bash
 # 启动对话助手
 python main.py
