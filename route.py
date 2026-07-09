@@ -27,7 +27,7 @@ def route(message: str) -> str:
     ebd_client =OpenAI(base_url=ebd_base_url, api_key=ebd_api_key)
     query_ebd = np.array(ebd_client.embeddings.create(
         model='Qwen3-Embedding-8B', # ModelScope Model-Id, required
-        input=message,
+        input=[message],
         encoding_format="float"
         ).data[0].embedding)
     
@@ -36,7 +36,7 @@ def route(message: str) -> str:
     for dsc, agent_id in EMBEDDING_RULES:
         rule_ebd = np.array(ebd_client.embeddings.create(
             model='Qwen3-Embedding-8B', # ModelScope Model-Id, required
-            input=dsc,
+            input=[dsc],
             encoding_format="float"
             ).data[0].embedding)
         # 计算rules和query相似度
