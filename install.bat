@@ -36,8 +36,9 @@ echo.
 REM Activate and install dependencies
 echo [3/5] Installing dependencies...
 call .venv\Scripts\activate.bat
+python -m ensurepip --upgrade >nul 2>&1
 python -m pip install --upgrade pip >nul 2>&1
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 if errorlevel 1 (
     echo [ERROR] Failed to install dependencies
     pause

@@ -33,8 +33,9 @@ echo ""
 # Activate and install dependencies
 echo "[3/5] Installing dependencies..."
 source .venv/bin/activate
+python -m ensurepip --upgrade > /dev/null 2>&1
 python -m pip install --upgrade pip > /dev/null 2>&1
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 if [ $? -ne 0 ]; then
     echo "[ERROR] Failed to install dependencies"
     exit 1

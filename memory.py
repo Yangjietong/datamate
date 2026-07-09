@@ -17,8 +17,14 @@ base_url = os.getenv("DEEPSEEK_BASE_URL")
 llm = ChatOpenAI(model="deepseek-v4-pro", base_url=base_url, api_key=api_key)
 
 
-from mem0 import MemoryClient
-memory = MemoryClient()
+_memory_client = None
+
+def _get_memory():
+    global _memory_client
+    if _memory_client is None:
+        from mem0 import MemoryClient
+        _memory_client = MemoryClient()
+    return _memory_client
 
 TOOLS_GENERAL = [ get_current_time, ai_search, write_text_to_csv, write_json_to_csv, visualize_data, preprocess_data]
 TOOL_MAP = {t.name: t for t in TOOLS_GENERAL}
@@ -74,7 +80,7 @@ def run_general(
     # 1. 检索相关长期记忆，动态增强 System Prompt
     system_content = BASE_SYSTEM
     if use_memory:
-        related = memory.search(query=user_input, filters={"user_id": user_id}, limit=3)
+        related = _get_memory().search(query=user_input, filters={"user_id": user_id}, limit=3)
         results = related.get("results") or []
         memories_str = "\n".join(f"- {r.get('memory', r)}" for r in results)
         if memories_str:
@@ -139,7 +145,7 @@ def run_general(
 
     # 3. 写入长期记忆（让 mem0 从对话中推断并存储）
     if use_memory:
-        memory.add(
+        _get_memory().add(
             [
                 {"role": "user", "content": user_input},
                 {"role": "assistant", "content": reply},
@@ -170,7 +176,7 @@ def run_deep_research(
     # 1. 检索相关长期记忆
     system_content = "你是一个深度研究助手，擅长拆解复杂问题、收集证据并撰写报告。"
     if use_memory:
-        related = memory.search(query=user_input, filters={"user_id": user_id}, limit=3)
+        related = _get_memory().search(query=user_input, filters={"user_id": user_id}, limit=3)
         results = related.get("results") or []
         memories_str = "\n".join(f"- {r.get('memory', r)}" for r in results)
         if memories_str:
@@ -280,7 +286,7 @@ def run_deep_research(
 
     # 写入长期记忆
     if use_memory:
-        memory.add(
+        _get_memory().add(
             [
                 {"role": "user", "content": user_input},
                 {"role": "assistant", "content": final_report},
